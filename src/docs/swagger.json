@@ -1,0 +1,188 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This solution for this test task: https://github.com/sdobrimutrom/python_test",
+        "title": "Test task for Go developer",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8797",
+    "basePath": "/",
+    "paths": {
+        "/file/": {
+            "post": {
+                "description": "Add file to system",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "File"
+                ],
+                "summary": "Import file",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "Upload file",
+                        "name": "file",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/file.responseJson"
+                        }
+                    }
+                }
+            }
+        },
+        "/file/{id}": {
+            "get": {
+                "description": "get file status by Id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "File"
+                ],
+                "summary": "Get file status",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "file ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/fileIdInfo.response"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete file by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "File"
+                ],
+                "summary": "Delete file",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "file ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/deleteFileById.response"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "description": "Start convert file to ffmpeg",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "File"
+                ],
+                "summary": "Start convert file",
+                "parameters": [
+                    {
+                        "description": "data for ffmpeg",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/fileId.request"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "file ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/fileId.response"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "deleteFileById.response": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "file.responseJson": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "fileId.request": {
+            "type": "object",
+            "properties": {
+                "height": {
+                    "type": "integer"
+                },
+                "width": {
+                    "type": "integer"
+                }
+            }
+        },
+        "fileId.response": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "fileIdInfo.response": {
+            "type": "object",
+            "properties": {
+                "filename": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "processing": {
+                    "type": "boolean"
+                },
+                "processing_success": {
+                    "type": "boolean"
+                }
+            }
+        }
+    }
+}

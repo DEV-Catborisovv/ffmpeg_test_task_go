@@ -1,0 +1,123 @@
+basePath: /
+definitions:
+  deleteFileById.response:
+    properties:
+      success:
+        type: boolean
+    type: object
+  file.responseJson:
+    properties:
+      id:
+        type: string
+    type: object
+  fileId.request:
+    properties:
+      height:
+        type: integer
+      width:
+        type: integer
+    type: object
+  fileId.response:
+    properties:
+      success:
+        type: boolean
+    type: object
+  fileIdInfo.response:
+    properties:
+      filename:
+        type: string
+      id:
+        type: string
+      processing:
+        type: boolean
+      processing_success:
+        type: boolean
+    type: object
+host: localhost:8797
+info:
+  contact: {}
+  description: 'This solution for this test task: https://github.com/sdobrimutrom/python_test'
+  title: Test task for Go developer
+  version: "1.0"
+paths:
+  /file/:
+    post:
+      description: Add file to system
+      parameters:
+      - description: Upload file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/file.responseJson'
+      summary: Import file
+      tags:
+      - File
+  /file/{id}:
+    delete:
+      description: Delete file by ID
+      parameters:
+      - description: file ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/deleteFileById.response'
+      summary: Delete file
+      tags:
+      - File
+    get:
+      description: get file status by Id
+      parameters:
+      - description: file ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/fileIdInfo.response'
+      summary: Get file status
+      tags:
+      - File
+    patch:
+      description: Start convert file to ffmpeg
+      parameters:
+      - description: data for ffmpeg
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/fileId.request'
+      - description: file ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/fileId.response'
+      summary: Start convert file
+      tags:
+      - File
+swagger: "2.0"

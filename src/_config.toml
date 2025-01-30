@@ -1,0 +1,8 @@
+# This file is config for application
+# Set constants for u'r parameters
+
+
+# ______________________________
+# API SERVER SETTINGS
+API_SERVER_PORT = 8797
+# ______________________________
